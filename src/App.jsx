@@ -13,11 +13,13 @@ function App() {
       setError("");
       const userRes = await fetch(`https://api.github.com/users/${username}`);
       if (!userRes.ok) throw new Error("User not found");
+
       const user = await userRes.json();
       const repoRes = await fetch(`https://api.github.com/users/${username}/repos`);
       const repoData = await repoRes.json();
+
       setUserData(user);
-      setRepos(repoData.slice(0, 5)); // top 5 repos
+      setRepos(repoData.slice(0, 5)); // Show top 5 repos
     } catch (err) {
       setError(err.message);
       setUserData(null);
@@ -26,12 +28,23 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-800 flex flex-col items-center p-6">
-      <h1 className="text-3xl font-bold mb-6 text-blue-600">DevFinder</h1>
+    <div className="min-h-screen bg-[#0d1117] text-white flex flex-col items-center p-6">
+      <h1 className="text-4xl font-bold mb-2 text-[#0079ff] flex items-center gap-2">
+        <i className="fa-brands fa-github text-3xl"></i> DevFinder
+      </h1>
+      <p className="text-gray-400 mb-8">
+        Discover GitHub developers and their profiles
+      </p>
+
       <SearchBar onSearch={fetchGitHubData} />
-      {error && <p className="text-red-500 mt-4">{error}</p>}
-      {userData && <ProfileCard user={userData} />}
-      {repos.length > 0 && <RepoList repos={repos} />}
+
+      {error && <p className="text-red-400 mt-4">{error}</p>}
+      {userData && (
+        <>
+          <ProfileCard user={userData} />
+          {repos.length > 0 && <RepoList repos={repos} />}
+        </>
+      )}
     </div>
   );
 }

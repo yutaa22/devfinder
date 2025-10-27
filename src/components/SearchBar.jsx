@@ -9,15 +9,21 @@ export default function SearchBar({ onSearch }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2 mb-6">
+    <form
+      onSubmit={handleSubmit}
+      className="flex items-center bg-[#161b22] rounded-lg p-2 shadow-md w-[90%] max-w-lg mb-8"
+    >
       <input
         type="text"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
-        placeholder="Enter GitHub username..."
-        className="border p-2 rounded w-64 shadow"
+        placeholder="Search GitHub username..."
+        className="flex-grow bg-transparent outline-none text-white placeholder-gray-400 px-3 py-2"
       />
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded shadow">
+      <button
+        type="submit"
+        className="bg-[#0079ff] hover:bg-[#005cd1] text-white font-semibold px-5 py-2 rounded-md"
+      >
         Search
       </button>
     </form>
